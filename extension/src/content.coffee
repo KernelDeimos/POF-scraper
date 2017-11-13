@@ -8,5 +8,5 @@ util.log "content script loaded", "info"
 
 chrome.runtime.onMessage.addListener (request, sender, sendResponse)->
     if request.message == "baction_click"
-        util.log "browser action was clicked", "info"
+        util.log "browser action was clicked", "debu"
     return

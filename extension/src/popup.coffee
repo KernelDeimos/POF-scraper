@@ -33,9 +33,8 @@ updateConsole = ()->
 
 run = ()->
     btn1 = document.getElementById "button1"
-    btn1.value = "hey click me"
     btn1.addEventListener 'click', ()->
-        btn1.value = "post-click"
+        util.log "button press receive @ popup", "info"
         dothing()
         updateConsole()
         return
