@@ -1,10 +1,11 @@
 util =
     name: "POFS 0.0.0"
+    source: "?"
     onLog: (msg)->
     log: (msg, level)->
+        fullmsg = msg
         if level != undefined
-            console.log "["+util.name+"] ["+level+"] "+msg
-            util.onLog "["+level+"] "+msg
-        else
-            console.log "["+util.name+"] "+msg
-            util.onLog msg
+            fullmsg = "["+level+"] "+msg
+            fullmsg = ""+util.source+" "+fullmsg
+        console.log "["+util.name+"] "+fullmsg
+        util.onLog fullmsg

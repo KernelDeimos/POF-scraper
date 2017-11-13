@@ -1,6 +1,7 @@
 globals =
     debug: []
 
+util.source = "B"
 util.onLog = (msg)->
     globals.debug.push msg
 

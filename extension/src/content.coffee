@@ -1,3 +1,4 @@
+util.source = "C"
 util.onLog = (msg)->
     chrome.extension.sendRequest
         request: "log"

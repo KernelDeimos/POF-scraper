@@ -1,3 +1,4 @@
+util.source = "P"
 util.onLog = (msg)->
     bg = chrome.extension.getBackgroundPage()
     bg.globals.debug.push(msg)
