@@ -9,3 +9,5 @@ util =
             fullmsg = ""+util.source+" "+fullmsg
         console.log "["+util.name+"] "+fullmsg
         util.onLog fullmsg
+
+config = {}

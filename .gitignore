@@ -1,3 +1,4 @@
 extension/vendor/
 extension/lib/
 *.png
+extension/src/config.coffee
