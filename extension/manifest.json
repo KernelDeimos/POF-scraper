@@ -12,7 +12,7 @@
 			"matches": [
 				"https://www.pof.com/*"
 			],
-			"js": ["lib/content_full.js"]
+			"js": ["vendor/jquery-3.2.1.min.js", "lib/content_full.js"]
 		}
 	],
 
