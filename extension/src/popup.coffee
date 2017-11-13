@@ -35,6 +35,9 @@ updateConsole = ()->
 
 
 run = ()->
+    bg = chrome.extension.getBackgroundPage()
+    if bg.globals.score != ""
+        ($ "#scoretext").html("Score: "+bg.globals.score)
     btn1 = document.getElementById "button1"
     btn1.addEventListener 'click', ()->
         util.log "button press receive", "info"

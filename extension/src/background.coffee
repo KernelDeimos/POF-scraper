@@ -1,5 +1,6 @@
 globals =
     debug: []
+    score: ""
 
 util.source = "B"
 util.onLog = (msg)->
@@ -40,3 +41,7 @@ chrome.browserAction.onClicked.addListener (tab)->
 chrome.extension.onRequest.addListener (request)->
     if request.request == "log"
         globals.debug.push request.message
+    else if request.request == "badge"
+        globals.score = request.value
+        chrome.browserAction.setBadgeText
+            text: request.value
