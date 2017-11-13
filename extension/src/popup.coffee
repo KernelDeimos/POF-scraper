@@ -21,6 +21,8 @@ sendToContentScript = (object)->
     return 
 
 updateConsole = ()->
+    if globals.outputIsScrolled
+        return
     bg = chrome.extension.getBackgroundPage()
     debugMessages = bg.globals.debug
     output = $ "#debugConsole"
@@ -36,9 +38,14 @@ run = ()->
     btn1 = document.getElementById "button1"
     btn1.addEventListener 'click', ()->
         util.log "button press receive", "info"
-        sendToContentScript
-            command:  ($ "#inCmd").val()
-            argument: ($ "#inArg").val()
+        command = ($ "#inCmd").val()
+        if command == "blanklines"
+            for i in [0..8]
+                util.log ""
+        else
+            sendToContentScript
+                command:  command
+                argument: ($ "#inArg").val()
         updateConsole()
         return
     setInterval ()->
