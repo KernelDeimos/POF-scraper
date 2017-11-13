@@ -9,14 +9,14 @@ globals =
     outputIsScrolled: false
     outputLastScroll: 0
 
-dothing = ()->
+sendToContentScript = (object)->
     chrome.tabs.query
         active: true
         currentWindow: true
         (tabs)->
             activeTab = tabs[0]
             chrome.tabs.sendMessage activeTab.id,
-                message: "baction_click"
+                object
             return 
     return 
 
@@ -35,8 +35,10 @@ updateConsole = ()->
 run = ()->
     btn1 = document.getElementById "button1"
     btn1.addEventListener 'click', ()->
-        util.log "button press receive @ popup", "info"
-        dothing()
+        util.log "button press receive", "info"
+        sendToContentScript
+            command:  ($ "#inCmd").val()
+            argument: ($ "#inArg").val()
         updateConsole()
         return
     setInterval ()->
