@@ -4,8 +4,26 @@ globals =
 util.onLog = (msg)->
     globals.debug.push msg
 
-for i in [1..50]
-    util.log "Background script loaded"
+# Display startup text
+globals.introtext = """
+██████╗  ██████╗ ███████╗███████╗
+██╔══██╗██╔═══██╗██╔════╝██╔════╝
+██████╔╝██║   ██║█████╗  ███████╗
+██╔═══╝ ██║   ██║██╔══╝  ╚════██║
+██║     ╚██████╔╝██║     ███████║
+╚═╝      ╚═════╝ ╚═╝     ╚══════╝
+                                 
+ ██████╗     ██████╗     ██████╗ 
+██╔═████╗   ██╔═████╗   ██╔═████╗
+██║██╔██║   ██║██╔██║   ██║██╔██║
+████╔╝██║   ████╔╝██║   ████╔╝██║
+╚██████╔╝██╗╚██████╔╝██╗╚██████╔╝
+ ╚═════╝ ╚═╝ ╚═════╝ ╚═╝ ╚═════╝ 
+"""
+
+util.log globals.introtext
+
+util.log "background script started", "info"
 
 chrome.browserAction.onClicked.addListener (tab)->
     chrome.tabs.query

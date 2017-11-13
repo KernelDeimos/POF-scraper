@@ -2,7 +2,7 @@ util.onLog = (msg)->
     bg = chrome.extension.getBackgroundPage()
     bg.globals.debug.push(msg)
 
-util.log "I am the popup"
+util.log "popup activated", "debu"
 
 globals =
     outputIsScrolled: false
