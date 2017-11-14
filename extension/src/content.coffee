@@ -10,6 +10,7 @@ util.log "content script loaded", "info"
 commands =
     findusers:
         run: (arg) ->
+            foundList = []
             ($ "a").each ()->
                 #util.log "found a link", "debu"
                 ref = ($ this).attr "href"
@@ -18,7 +19,12 @@ commands =
                 if match == null
                     return
                 util.log "found profile id: "+match[1], "info"
+                foundList.push match[1]
                 return
+            chrome.extension.sendRequest
+                request: "addusers"
+                users: foundList
+            return
     loaduser:
         run: (arg) ->
             window.location = "viewprofile.aspx?profile_id="+arg

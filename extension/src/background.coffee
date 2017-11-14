@@ -1,6 +1,7 @@
 globals =
     debug: []
     score: ""
+    users: {}
 
 util.source = "B"
 util.onLog = (msg)->
@@ -45,3 +46,13 @@ chrome.extension.onRequest.addListener (request)->
         globals.score = request.value
         chrome.browserAction.setBadgeText
             text: request.value
+    else if request.request == "addusers"
+        for user in request.users
+            if !(user of globals.users)
+                globals.users[user] =
+                    userid: user
+                    checked: false
+                    score: 0
+        util.log "current user store contains "+
+            Object.keys(globals.users).length+" items", "debu"
+    return
