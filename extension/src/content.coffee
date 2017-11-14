@@ -30,11 +30,14 @@ commands =
             window.location = "viewprofile.aspx?profile_id="+arg
     rateuser:
         run: (arg) ->
-            regex = /viewprofile\.aspx/g
+            regex = /^.*viewprofile\.aspx\?.*profile_id=([0-9]+)$/g
             match = regex.exec window.location.href
             if match == null
                 util.log "this command is only tested for viewprofile.aspx pages", "erro"
                 return
+            userID = match[1]
+            util.log "At user profile "+userID, "debu"
+            
             description = $("#description").html()
             ($ "#interests").find("a").each () ->
                 description += ($ this).html()
@@ -48,6 +51,10 @@ commands =
                 for i in [0...match.length]
                     pscore += weight / Math.pow(2, i)
                 score += pscore
+            chrome.extension.sendRequest
+                request: "setscore"
+                user: userID
+                score: score
             return score
 
 
@@ -60,6 +67,10 @@ chrome.runtime.onMessage.addListener (request, sender, sendResponse)->
     else if request.command == "rateuser"
         result = commands.rateuser.run(request.argument)
         util.log "command returned value: " + result, "data"
+    else
+        chrome.extension.sendRequest
+            request: request.command
+            argument: request.argument
     return
 
 always = () ->
