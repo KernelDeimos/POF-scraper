@@ -20,6 +20,10 @@ sendToContentScript = (object)->
             return 
     return 
 
+copyid = (id)->
+    util.log "clicked link", "debu"
+    $("#inArg").val(id)
+
 updateConsole = ()->
     if globals.outputIsScrolled
         return
@@ -28,9 +32,14 @@ updateConsole = ()->
     output = $ "#debugConsole"
     output.html ""
     for msg in debugMessages
+        regex = /([0-9]+)/
+        msg = msg.replace /([0-9]+)/,
+            "<a href=\"#\">$1</a>"
         output.html output.html()+msg+"\n"
     if !globals.outputIsScrolled
         output.scrollTop(output[0].scrollHeight)
+    output.find('a').click ()->
+        copyid($(this).html())
     return
 
 
@@ -54,7 +63,7 @@ run = ()->
     setInterval ()->
         updateConsole()
         return
-    , 50
+    , 200
 
     output = $ "#debugConsole"
     globals.outputLastScroll = output.scrollTop()

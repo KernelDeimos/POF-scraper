@@ -26,3 +26,10 @@ border-radius: 10px;
         max-height: 400px;
         overflow-y: scroll;
     }
+    .debug-console a {
+        color: #7CF;
+        text-decoration: none;
+    }
+    .debug-console a:hover {
+        text-decoration: underline;
+    }
