@@ -8,7 +8,7 @@ util.onLog = (msg)->
 util.log "content script loaded", "info"
 
 commands =
-    showusers:
+    findusers:
         run: (arg) ->
             ($ "a").each ()->
                 #util.log "found a link", "debu"
@@ -47,8 +47,8 @@ commands =
 
 chrome.runtime.onMessage.addListener (request, sender, sendResponse)->
     util.log "want to do '"+request.command+"' with '"+request.argument+"'", "debu"
-    if request.command == "showusers"
-        commands.showusers.run(request.argument)
+    if request.command == "findusers"
+        commands.findusers.run(request.argument)
     else if request.command == "loaduser"
         commands.loaduser.run(request.argument)
     else if request.command == "rateuser"
