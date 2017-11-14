@@ -51,6 +51,12 @@ commands =
                 for i in [0...match.length]
                     pscore += weight / Math.pow(2, i)
                 score += pscore
+            city = $("#city").html()
+            for word, weight of config.cities
+                regex = new RegExp word, "gi"
+                match = description.match(regex)
+                if match != null
+                    score += weight
             chrome.extension.sendRequest
                 request: "setscore"
                 user: userID
