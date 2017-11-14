@@ -54,7 +54,13 @@ commands =
             city = $("#city").html()
             for word, weight of config.cities
                 regex = new RegExp word, "gi"
-                match = description.match(regex)
+                match = city.match(regex)
+                if match != null
+                    score += weight
+            fishtype = $("#fishtype").html()
+            for word, weight of config.fishtypes
+                regex = new RegExp word, "gi"
+                match = fishtype.match(regex)
                 if match != null
                     score += weight
             chrome.extension.sendRequest
