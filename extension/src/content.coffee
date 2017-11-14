@@ -14,7 +14,7 @@ commands =
             ($ "a").each ()->
                 #util.log "found a link", "debu"
                 ref = ($ this).attr "href"
-                regex = /^viewprofile\.aspx\?.*profile_id=([0-9]+)$/g
+                regex = /^viewprofile\.aspx\?.*profile_id=([0-9]+)/g
                 match = regex.exec ref
                 if match == null
                     return

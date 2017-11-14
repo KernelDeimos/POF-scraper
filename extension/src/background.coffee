@@ -2,6 +2,7 @@ globals =
     debug: []
     score: ""
     users: {}
+    crawlMode: false
 
 util.source = "B"
 util.onLog = (msg)->
@@ -17,6 +18,12 @@ sendToContentScript = (object)->
                 object
             return 
     return 
+
+getNextFish = ()->
+    for id, user of globals.users
+        if !user.checked
+            return id
+    return false
 
 # Display startup text
 globals.introtext = """
@@ -74,10 +81,21 @@ chrome.extension.onRequest.addListener (request)->
             initializeUser request.user
         globals.users[request.user].score = request.score
         globals.users[request.user].checked = true
-    else if request.request == "crawl"
-        util.log "background received crawl command", "debu"
+        if globals.crawlMode
+            fish = getNextFish()
+            if fish != false
+                sendToContentScript
+                    command: "loaduser"
+                    argument: fish
     else if request.request == "all"
         for id, user of globals.users
             if user.checked
                 util.log ""+user.userid+" "+user.score, "data"
+    else if request.request == "crawl"
+        if request.argument == "start"
+            util.log "crawl mode ON"
+            globals.crawlMode = true
+        else
+            util.log "crawl mode OFF"
+            globals.crawlMode = false
     return
