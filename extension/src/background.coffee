@@ -62,6 +62,7 @@ initializeUser = (userID) ->
         userid: userID
         checked: false
         score: 0
+        common: []
 
 chrome.extension.onRequest.addListener (request)->
     if request.request == "log"
@@ -80,6 +81,7 @@ chrome.extension.onRequest.addListener (request)->
         if !(request.user of globals.users)
             initializeUser request.user
         globals.users[request.user].score = request.score
+        globals.users[request.user].common = request.common
         globals.users[request.user].checked = true
         if globals.crawlMode
             fish = getNextFish()
@@ -90,7 +92,8 @@ chrome.extension.onRequest.addListener (request)->
     else if request.request == "all"
         for id, user of globals.users
             if user.checked
-                util.log ""+user.userid+" "+user.score, "data"
+                util.log ""+user.userid+" "+user.score+
+                    " ["+user.common.join(',')+"]", "data"
     else if request.request == "crawl"
         if request.argument == "start"
             util.log "crawl mode ON"

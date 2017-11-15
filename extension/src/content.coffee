@@ -37,6 +37,8 @@ commands =
                 return
             userID = match[1]
             util.log "At user profile "+userID, "debu"
+
+            commonWords = []
             
             description = $("#description").html()
             ($ "#interests").find("a").each () ->
@@ -48,6 +50,7 @@ commands =
                 match = description.match(regex)
                 if match == null
                     continue
+                commonWords.push word
                 for i in [0...match.length]
                     pscore += weight / Math.pow(2, i)
                 score += pscore
@@ -56,17 +59,20 @@ commands =
                 regex = new RegExp word, "gi"
                 match = city.match(regex)
                 if match != null
+                    commonWords.push "city:"+word
                     score += weight
             fishtype = $("#fishtype").html()
             for word, weight of config.fishtypes
                 regex = new RegExp word, "gi"
                 match = fishtype.match(regex)
                 if match != null
+                    commonWords.push "fishtype:"+word
                     score += weight
             chrome.extension.sendRequest
                 request: "setscore"
                 user: userID
                 score: score
+                common: commonWords
             return score
 
 
