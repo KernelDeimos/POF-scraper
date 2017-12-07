@@ -1,4 +1,9 @@
 # POF Scraper
+This is a Google Chrome extension I made which scans profiles on the dating site PlentyOfFish and reports a "score" for each profile based on a hard-coded list of keywords.
+
+This was built for my own personal use and it's very difficult to use. Later I plan to release a framework for building extensions similar to this one, and then a more general extension from scraping data from any website.
+
+I have developed automatic message sending as well, but I haven't pushed it to this repository, as it would be easy to accidentally spam hundreds of profiles without knowing how it works.
 
 ## Setup
 ### Step 1: Config
